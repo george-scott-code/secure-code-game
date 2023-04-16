@@ -28,7 +28,10 @@ def validorder(order: Order):
             if item.amount > -1*MAX_ITEM_AMOUNT and item.amount < MAX_ITEM_AMOUNT:
                 net += item.amount
         elif item.type == 'product':
-            net -= item.amount * item.quantity
+            if item.quantity > 0 and item.quantity <= MAX_QUANTITY and item.amount > 0 and item.amount <= MAX_ITEM_AMOUNT:
+                net -= item.amount * item.quantity
+            if net > MAX_TOTAL or net < -1*MAX_TOTAL:
+                return("Total amount exceeded")
         else:
             return("Invalid item type: %s" % item.type)
     
